@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  jetzt:
+    build:
+      dockerfile: docker/jetzt/jetztd/Dockerfile
+      context: ../..
+    image: ondrejsika/jetztd
+    volumes:
+      - data:/data
+    ports:
+      - ${JETZT_PORT:-8000}:80
+  nginx:
+    build:
+      dockerfile: docker/jetzt/nginx/Dockerfile
+      context: ../..
+    image: ondrejsika/jetzt-nginx
+    ports:
+      - ${NGINX_PORT:-80}:80
+    volumes:
+      - data:/data
+volumes:
+  data:
